@@ -1,0 +1,1 @@
+writting to a file using character streamwritting to a file using character streamappending to a file using character stream

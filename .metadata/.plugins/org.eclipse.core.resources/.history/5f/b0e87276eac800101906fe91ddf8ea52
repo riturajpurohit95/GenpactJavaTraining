@@ -1,0 +1,31 @@
+package com.ShopSphere.shop_sphere.dto;
+
+import jakarta.validation.constraints.NotBlank;
+
+public class LocationDto {
+	
+	public LocationDto(Integer locationId, @NotBlank(message = "City is required") String city) {
+		super();
+		this.locationId = locationId;
+		this.city = city;
+	}
+	private Integer locationId;
+	@NotBlank(message = "City is required")
+	private String city;
+	
+	public Integer getLocationId() {
+		return locationId;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setLocationId(Integer locationId) {
+		this.locationId = locationId;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	
+	
+
+}

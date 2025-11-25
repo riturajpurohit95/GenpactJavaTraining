@@ -1,0 +1,80 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation=" http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+		<!--  Define bean and property  
+		<bean id="helloWorld" class="com.firstspringproject.hello_world.HelloWorld">
+		
+		  instance member message , set value for this message 
+		<property name="message" value="Hello Spring IoC."/>
+		
+		  property injection, spring set the message field  
+		
+		   
+		</bean>
+		
+		<bean id="helloWorld2" class="com.firstspringproject.hello_world.HelloWorld">
+			
+			  make use of constructor injection 
+			<constructor-arg value="Hello from constructor injection"/>
+		
+		</bean>-->
+		
+		
+		<!--  Address bean 
+		
+		<bean id="myAddress" class="com.firstspringproject.hello_world.Address">
+			
+			 Constructor injection, use constructor of address class 
+			<constructor-arg value='Delhi'/>
+			<constructor-arg value='India'/>
+		
+		</bean>
+		
+		<bean id="helloWorldAddress" class="com.firstspringproject.hello_world.HelloWorld">
+		
+			  constructor injection of Hello World Class 
+			<constructor-arg value="Hello from constructor injection of Hello world with Address"/>
+			<constructor-arg ref="myAddress"/>
+		
+		</bean>-->
+		
+		
+		
+		<!-- constructor injection list: string -->
+		<bean id="listBean" class="com.firstspringproject.hello_world.HelloCollections">
+		<constructor-arg>
+			<list>
+				<value>Java Spring</value>
+				<value>HTML</value>
+				<value>Python</value>
+			</list>
+		</constructor-arg>
+		</bean>
+		
+		<!-- constructor injection set: integers -->
+		<bean id="setBean" class="com.firstspringproject.hello_world.HelloCollections">
+		
+			<constructor-arg>
+				<set>
+					<value>101</value>
+					<value>102</value>
+					<value>103</value>
+				</set>
+			</constructor-arg>
+
+		</bean>
+		
+		<!-- setter injection map -->
+		<bean id="mapBean" class="com.firstspringproject.hello_world.HelloCollections">
+		
+			<property name="cmap">
+				<map>
+					<entry key="url" value="jdbc:mysql"/>
+					<entry key="username" value="root"/>
+					<entry key="password" value="Genpact@123456789"/>
+				</map>
+			</property>
+		</bean>
+		
+</beans>

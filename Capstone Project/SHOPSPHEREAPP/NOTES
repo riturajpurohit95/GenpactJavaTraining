@@ -1,0 +1,6 @@
+// npx create-reacte-app@latest shop-sphere-react-app
+
+// npm install axios
+
+// add proxy to package.json 
+// "proxy":"http://localhost:9090",

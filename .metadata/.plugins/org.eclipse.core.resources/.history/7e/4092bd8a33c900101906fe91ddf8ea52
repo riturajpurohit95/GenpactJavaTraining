@@ -1,0 +1,32 @@
+package com.ShopSphere.shop_sphere.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ShopSphere.shop_sphere.repository.LocationDao;
+import com.ShopSphere.shop_sphere.repository.ProductDao;
+import com.ShopSphere.shop_sphere.repository.UserDao;
+
+@Service
+public class DeliveryService {
+
+	
+	@Autowired
+	private LocationDao locationDao;
+	
+	@Autowired
+	private UserDao userDao;
+	
+	@Autowired
+	private ProductDao productDao;
+	
+	public int calculateDeliveryDays(int buyerId, int productId) {
+		int buyerLocationId = userDao.getLocationIdOfUser(buyerId);
+		int buyerHub = locationDao.getHubValue(buyerLocationId);
+		int sellerId = productDao.getSellerIdByProductId(productId);
+		int sellerLocationId = userDao.getLocationIdOfUser(sellerId);
+		int sellerHub = locationDao.getHubValue(sellerLocationId);
+		int diff = Math.abs(buyerLocationId - sellerHub );
+		return diff / 20;
+	}
+}

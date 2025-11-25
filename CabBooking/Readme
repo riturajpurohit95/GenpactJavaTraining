@@ -1,0 +1,39 @@
+
+- four tables - users, drivers, bookings, routes
+- users - user_id, name, email, phone, password
+- drivers - driver_id, name, vehicle_no, availability
+- bookings - booking_id, source, destination, fare, ....  urser_id and driver_id, route_id are foreign keys
+- user books - driver unavailable - record in bookings
+- flow   -     user -> book cab -> driver assigned -> booking stored
+- user -> register, login, book, cancel 
+- drivers -> accept or reject ride
+
+
+
+-- joins 
+--- checkAllBookings  for a loggedIn user ->  for that route_id will be needed in bookings table   -- done
+--- can also use filters like - all bookings, cancelled bookings      --- used in checkAllBookings  
+--- activeRides function - for admin can be created
+--- also created triggers          -- 2 triggers created
+
+
+---issues:
+--   after ride completion --  cancellation should not be allowed    --- resolved
+--   can upgrade makepayment method -- match the entred amount to the fare
+
+
+
+
+---  admin actions
+
+--  add driver  - done
+--  add routes  - 
+--  check active rides  and other rides data
+--  delete route
+--  delete driver
+--  total earnings
+
+
+--- drivers actions:
+
+--  accept/reject ride

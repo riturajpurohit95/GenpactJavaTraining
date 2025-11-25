@@ -1,0 +1,17 @@
+package com.ShopSphere.shop_sphere.service;
+
+import java.util.List;
+
+import com.ShopSphere.shop_sphere.dto.CartItemDto;
+
+public interface CartItemService {
+	
+	CartItemDto addItem(CartItemDto cartItemDto);
+	List<CartItemDto> getItemByCartId(int cartId);
+	CartItemDto updateItemQuantity(int cartItemId, int quantity);
+	void deleteItem(int cartItemId);
+	boolean existsInCart(int cartId, int productId);
+	void deleteItemByProductId(int cartId, int productId);
+	double calculateTotalAmount(int cartId);
+
+}

@@ -1,0 +1,135 @@
+package com.ShopSphere.shop_sphere.repository;
+
+import com.ShopSphere.shop_sphere.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
+
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+@Repository
+public class UserDaoImpl implements UserDao {
+
+    private final JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public UserDaoImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    
+    private static final RowMapper<User> USER_ROW_MAPPER = new RowMapper<User>() {
+        @Override
+        public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+            User u = new User();
+            u.setUserId(rs.getInt("user_id"));
+            u.setName(rs.getString("name"));
+            u.setEmail(rs.getString("email"));
+            u.setPassword(rs.getString("password"));
+            u.setPhone(rs.getString("phone")); // nullable
+            // role stored as ENUM('Admin','Seller','Buyer') -> use String in model
+            u.setRole(rs.getString("role"));
+            // location_id may be nullable; handle as Integer
+            int locId = rs.getInt("location_id");
+            u.setLocationId(rs.wasNull() ? null : locId);
+            return u;
+        }
+    };
+
+    
+    private static final String INSERT_SQL = "INSERT INTO user (name, email, password, phone, role, location_id) VALUES (?, ?, ?, ?, ?, ?)";
+
+    private static final String SELECT_BY_ID_SQL = "SELECT user_id, name, email, password, phone, role, location_id FROM user WHERE user_id = ?";
+
+    private static final String SELECT_BY_EMAIL_SQL = "SELECT user_id, name, email, password, phone, role, location_id FROM user WHERE email = ?";
+
+    private static final String SELECT_ALL_SQL = "SELECT user_id, name, email, password, phone, role, location_id FROM user ORDER BY user_id";
+
+    private static final String UPDATE_SQL = "UPDATE user SET name = ?, email = ?, password = ?, phone = ?, role = ?, location_id = ? WHERE user_id = ?";
+
+    private static final String DELETE_SQL = "DELETE FROM user WHERE user_id = ?";
+
+    
+    @Override
+    public int save(User user) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        int affected = jdbcTemplate.update(con -> {
+            PreparedStatement ps = con.prepareStatement(INSERT_SQL, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword());
+            // phone can be null
+            if (user.getPhone() != null) {
+                ps.setString(4, user.getPhone());
+            } else {
+                ps.setNull(4, java.sql.Types.VARCHAR);
+            }
+            // role must be one of 'Admin','Seller','Buyer'
+            ps.setString(5, user.getRole());
+            // location_id may be null
+            if (user.getLocationId() != null) {
+                ps.setInt(6, user.getLocationId());
+            } else {
+                ps.setNull(6, java.sql.Types.INTEGER);
+            }
+            return ps;
+        }, keyHolder);
+
+        if (affected > 0 && keyHolder.getKey() != null) {
+            int generatedId = keyHolder.getKey().intValue();
+            user.setUserId(generatedId); // keep model in sync
+            return generatedId;
+        }
+        return 0;
+    }
+
+    @Override
+    public User findById(int userId) {
+        try {
+            return jdbcTemplate.queryForObject(SELECT_BY_ID_SQL, USER_ROW_MAPPER, userId);
+        } catch (EmptyResultDataAccessException ex) {
+            return null;
+        }
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        try {
+            return jdbcTemplate.queryForObject(SELECT_BY_EMAIL_SQL, USER_ROW_MAPPER, email);
+        } catch (EmptyResultDataAccessException ex) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<User> findAll() {
+        return jdbcTemplate.query(SELECT_ALL_SQL, USER_ROW_MAPPER);
+    }
+
+    @Override
+    public int update(User user) {
+        return jdbcTemplate.update(UPDATE_SQL,
+                user.getName(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getPhone(),                 // ok if null
+                user.getRole(),
+                user.getLocationId(),            // ok if null
+                user.getUserId()
+        );
+    }
+
+    @Override
+    public int delete(int userID) {
+        return jdbcTemplate.update(DELETE_SQL, userID);
+    }
+}

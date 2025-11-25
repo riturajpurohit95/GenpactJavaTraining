@@ -1,0 +1,65 @@
+package com.ShopSphere.shop_sphere.repository;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import com.ShopSphere.shop_sphere.model.Cart;
+
+public class CartDaoImpl implements CartDao{
+	
+	private final Connection conn;
+	
+	private CartDaoImpl(Connection conn) {
+		this.conn= conn;
+	}
+
+	@Override
+	public int createCart(int userId) {
+		String sql = "INSERT INTO carts (user_id) VALUES (?)";
+		
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			ps.setInt(1,  userId);
+			
+			int rows = ps.executeUpdate();
+			
+			if(rows>0) {
+				ResultSet rs = ps.getGeneratedKeys();
+				if(rs.next()) {
+					return rs.getInt(1);
+				}
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+
+	@Override
+	public Cart findByUserId(int userId) {
+		Cart cart = null;
+		String sql = "SELECT * FROM carts WHERE user_id = ?";
+		
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1,  userId);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				cart = new Cart();
+				
+				cart.setCartId(rs.getInt("cart_id"));
+				cart.setUserId(rs.getInt("user_id"));
+			}
+			return cart;
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return cart;
+	}
+
+}

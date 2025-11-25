@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=" http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<!-- two service beans 
+	<bean id="emailService" class="com.autowiring.EmailService"/> -->
+	<bean id="smsService" class="com.autowiring.SmsService"/>  
+	
+	<!-- Autowiring -->
+	<!-- 1. autowire byName -->
+	<bean id="consumerByName" class="com.autowiring.ConsumerBySetter" autowire="byName"/>
+	<!-- propety name is messageService, find a bean with id="messageService" -->
+
+	<!-- 2. autowire byType   -->
+	<bean id="consumerByType" class="com.autowiring.ConsumerBySetter" autowire="byType"/>
+	
+	<!-- 3. autowire byConstructor -->
+	<bean id="consumerByConstructor" class="com.autowiring.ConsumerByConstructor" autowire="constructor"/>
+
+
+
+
+</beans>

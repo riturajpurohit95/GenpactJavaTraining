@@ -1,0 +1,18 @@
+package com.ShopSphere.shop_sphere.service;
+
+import java.util.List;
+
+import com.ShopSphere.shop_sphere.dto.CartDto;
+import com.ShopSphere.shop_sphere.model.Cart;
+
+public interface CartService {
+	
+	CartDto createCart(int userId);
+	CartDto getCartByUserId(int userId);
+	CartDto getCartById(int cartId);
+	List<CartDto> getAllCarts();
+	void deleteCart(int cartId);
+	boolean cartExistsForUser(int userId);
+	boolean isCarEmpty(int cartId);
+
+}

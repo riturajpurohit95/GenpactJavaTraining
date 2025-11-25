@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move package &apos;com.BookCab&apos; to &apos;CabBooking/src&apos;&#x0D;&#x0A;- Original project: &apos;EmployeeManagementSystem&apos;&#x0D;&#x0A;- Destination element: &apos;CabBooking/src&apos;&#x0D;&#x0A;- Original element: &apos;EmployeeManagementSystem/src/com.BookCab&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move package" destination="=CabBooking/src" element1="/src&lt;com.BookCab" flags="589830" fragments="1" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.movePackages" stamp="1762168693296" version="1.0"/>
+</session>

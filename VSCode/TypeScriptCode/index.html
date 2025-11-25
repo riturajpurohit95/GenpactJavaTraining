@@ -1,0 +1,43 @@
+<html lang="en">
+    <head>
+        <title>Typescript - Bank Account</title>
+    </head>
+    <body>
+        <div class="create">
+            <h3>Create Account</h3>
+            <label>Account Holder Name
+                <input id="holderName" type="text" placeholder="Your name"/>
+            </label>
+            <label>Initial Balance
+                <input id="initialBalance" type="number" value="0" min="0"/>
+            </label>
+            <button id="createBtn">Create Account</button>
+        </div>
+        <br><br>
+        <div class="accountOperations" id="opsAcc">
+            <h3>Account Operations</h3>
+            <p><strong id="accountInfo"></strong></p>    
+            <div class="update">
+                <label>Deposit Amount
+                    <input id="depositAmount" type="number" value="0" min="0"/>
+                </label>
+                <button id="depositBtn">Deposit</button>
+            </div>
+ 
+            <div class="update">
+                <label>Withdraw Amount
+                    <input id="withdrawAmount" type="number" value="0" min="0"/>
+                </label>
+                <button id="withdrawBtn">Withdraw</button>
+            </div>
+ 
+            <div>
+                <button id="balanceBtn">Show Balance</button>
+                <button id="closeBtn">Close Account</button>
+            </div>
+        </div>
+        <script src="account.js"></script>
+        <script src="app.js"></script>
+ 
+    </body>
+</html>

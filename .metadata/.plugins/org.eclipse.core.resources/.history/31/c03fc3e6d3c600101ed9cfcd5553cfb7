@@ -1,0 +1,7 @@
+package com.ShopSphere.shop_sphere.dto;
+
+public class CategoryDto {
+	
+	private Integer categoryId;
+
+}
