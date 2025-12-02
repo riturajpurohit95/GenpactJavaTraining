@@ -1,7 +1,0 @@
- 1)alter table  order_items modify column total_item_price decimal(12,2) 
- as (quantity* unit_price) STORED;
- 
- 2) update orders o left join( 
- select order_id, COALESCE(SUM(total_item_price),0) as calc_total
- from order_items group by order_id
- ) t on o.order_id = t.order_id SET o.total_amount = t.calc_total;

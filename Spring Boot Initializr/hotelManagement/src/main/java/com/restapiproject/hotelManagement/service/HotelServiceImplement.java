@@ -47,15 +47,15 @@ public class HotelServiceImplement implements HotelService{
 		existing.setAvailableRooms(hotel.getAvailableRooms());
 		existing.setPricePerNight(hotel.getPricePerNight());
 		int rows = hotelDao.update(existing);
-		if(rows<=0) throw new RuntimeException("Update filed for hotel id: "+id);
-		
+		if (rows<=0) throw new RuntimeException("Update failed for hotel id : "+id);
 		return existing;
 	}
 
 	@Override
-	public void deleteHotel(Long id) {
-		hotelDao.deleteById(id);
-		System.out.println("Deleted Successfully!");
-	}
+	public void deleteHotel(Long id) {		
+		// ensure exists
+		getHotelById(id);
+		int rows = hotelDao.deleteById(id);
+		if (rows<=0) throw new RuntimeException("Delete failed for hotel id : "+id);
 
-}
+}}

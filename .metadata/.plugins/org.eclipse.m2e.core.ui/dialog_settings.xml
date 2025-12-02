@@ -68,6 +68,8 @@
 	</section>
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="C:\JavaTraining\SHOPSPHERE\shop-sphere"/>
+			<item value="C:\Users\703438507\Desktop\shopSpereAfterFilter\shopSphereAfterTestingFourController"/>
 			<item value="C:\JavaTraining\Capstone Project\shop-sphere"/>
 			<item value="C:\JavaTraining\Spring Boot Initializr\hotelManagement"/>
 			<item value="C:\JavaTraining\Spring Boot Initializr\event-registration"/>

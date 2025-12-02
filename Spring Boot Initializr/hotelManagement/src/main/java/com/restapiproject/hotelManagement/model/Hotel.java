@@ -20,6 +20,15 @@ public class Hotel {
 		this.updatedAt = updatedAt;
 	}
 	
+	public Hotel(Long id, String name, String address, int totalRooms, int availableRooms, BigDecimal pricePerNight) {
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.totalRooms = totalRooms;
+		this.availableRooms = availableRooms;
+		this.pricePerNight = pricePerNight;
+	}
+	
 	private Long id;
 	private String name;
 	private String address;
